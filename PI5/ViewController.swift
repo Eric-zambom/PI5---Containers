@@ -21,17 +21,26 @@ class ViewController: UIViewController {
     var h: Double = 0.001
     
     var height = 200.0
+    var height2 = 0.0
+    var height3 = 0.0
     
     let e = 2.718281828459045235360287
     
     
     @IBOutlet weak var ContainerInput: UITextField!
+    
+    //Taxas
     @IBOutlet weak var taxInput: UITextField!
+    @IBOutlet weak var taxInput2: UITextField!
+    @IBOutlet weak var taxInput3: UITextField!
+    
+    //Define o que será mostrado ao usuário como output técnico
     @IBOutlet weak var Output: UITextView!
     @IBOutlet weak var diasInput: UITextField!
     
     @IBOutlet weak var conteiner1: UIView!
     @IBOutlet weak var conteiner2: UIView!
+    @IBOutlet weak var conteiner3: UIView!
     
     @IBOutlet weak var conteinerFill: UIView!
     
@@ -50,35 +59,13 @@ class ViewController: UIViewController {
         
         
     }
-
-    func vazamento(dias: Int) {
-
-        let temp = caixa1
-        caixa1 = caixa1 * pow(e, (-drop12 * Double(days)))
-        caixa2 = abs(caixa1 - temp)
-        print("Caixa 1 :\(caixa1) - Caixa 2 :\(caixa2)")
-        Output.text = "Caixa 1 :\(caixa1) - Caixa 2 :\(caixa2)"
-        
-        UIView.animate(withDuration: 1.0, delay: 0.5, options: .curveEaseOut, animations: {
-            var containerFillFrame = self.conteinerFill.frame
-            containerFillFrame.size.height += CGFloat(self.height)
-            
-            var container2Frame = self.conteiner2.frame
-            container2Frame.size.height -= CGFloat(self.height)
-            container2Frame.origin.y = 323
-            
-            self.conteinerFill.frame = containerFillFrame
-            self.conteiner2.frame = container2Frame
-        }, completion: { finished in
-            print("Transaction Complete")
-        })
-
-    }
     
     @IBAction func run(_ sender: UIButton) {
         
         caixa1 = Double(ContainerInput.text!) as! Double
         drop12 = Double(taxInput.text!) as! Double
+        drop23 = Double(taxInput2.text!) as! Double
+        drop31 = Double(taxInput3.text!) as! Double
         days = Double(diasInput.text!) as! Double
         
         animation()
@@ -97,8 +84,13 @@ class ViewController: UIViewController {
         container2Frame.size.height = 0
         container2Frame.origin.y = 323
         
+        var container3Frame = self.conteiner3.frame
+        container3Frame.size.height = 0
+        container3Frame.origin.y = 323
+        
         self.conteinerFill.frame = containerFillFrame
         self.conteiner2.frame = container2Frame
+        self.conteiner3.frame = container3Frame
         
         height = 200.0
         
@@ -116,6 +108,7 @@ class ViewController: UIViewController {
         height = height * drop12 * Double(days)
         
     }
+    
     
     func rungeKutta4(tax1: Double, tax2: Double, tax3: Double, q1: Double, q2: Double, q3: Double) -> Double {
         return tax1 * q1 + tax2 * q2 + tax3 * q3;
@@ -135,60 +128,36 @@ class ViewController: UIViewController {
     
     func  rk4Compartimento1(y: Double, q1: Double, q3: Double, h: Double) -> Double {
         let k1: Double = rungeKutta4formula1(box1: q1, box3: q3)
-            
-            //rungeKutta4(tax1: -drop12, tax2: 0.0, tax3: drop31, q1: q1, q2: 0.0, q3: q3)
         
         let k2: Double = rungeKutta4formula1(box1: q1 + h*k1/2, box3: q3 + h*k1/2)
-            
-            //rungeKutta4(tax1: -drop12, tax2: 0.0, tax3: drop31, q1: q1 + h*k1/2, q2: 0.0, q3: q3 + h*k1/2)
         
         let k3: Double = rungeKutta4formula1(box1: q1 + h*k2/2, box3: q3 + h*k2/2)
-            
-            //rungeKutta4(tax1: -drop12, tax2: 0.0, tax3: drop31, q1: q1 + h*k2/2, q2: 0.0, q3: q3 + h*k2/2)
         
         let k4: Double = rungeKutta4formula1(box1: q1 + h*k3, box3: q3 + h*k3)
-            
-            //rungeKutta4(tax1: -drop12, tax2: 0.0, tax3: drop31, q1: q1 + h*k3, q2: 0.0, q3: q3 + h*k3)
-        
+    
         return y + (k1 + 2*k2 + 2*k3 + k4) * h/6
     }
     
     func rk4Compartimento2(y: Double, q1: Double, q2: Double, h: Double) -> Double {
         let k1: Double = rungeKutta4formula2(box1: q1, box2: q2)
-            
-            //rungeKutta4(tax1: drop12, tax2: -drop23, tax3: 0.0, q1: q1, q2: q2, q3: 0.0)
         
         let k2: Double = rungeKutta4formula2(box1: q1 + h*k1/2, box2: q2 + h*k1/2)
-            
-            //rungeKutta4(tax1: drop12, tax2: -drop23, tax3: 0.0, q1: q1 + h*k1/2, q2: q2 + h*k1/2, q3: 0.0 )
         
         let k3: Double = rungeKutta4formula2(box1: q1 + h*k2/2, box2: q2 + h*k2/2)
-            
-            //rungeKutta4(tax1: drop12, tax2: -drop23, tax3: 0.0, q1: q1 + h*k2/2, q2: q2 + h*k2/2, q3: 0.0 )
-        
+
         let k4: Double = rungeKutta4formula2(box1: q1 + h*k3, box2: q2 + h*k3)
-            
-            //rungeKutta4(tax1: drop12, tax2: -drop23, tax3: 0.0, q1: q1 + h*k3, q2: q2 + h*k3, q3: 0.0)
         
         return y + (k1 + 2*k2 + 2*k3 + k4) * h/6
     }
     
     func  rk4Compartimento3(y: Double, q2: Double, q3: Double, h: Double) -> Double {
         let k1: Double = rungeKutta4formula3(box2: q2, box3: q3)
-            
-            //rungeKutta4(tax1: 0.0, tax2: drop23, tax3: -drop31, q1: 0.0, q2: q2, q3: q3)
         
         let k2: Double = rungeKutta4formula3(box2: q2 + h*k1/2, box3: q3 + h*k1/2)
-            
-            //rungeKutta4(tax1: 0.0, tax2: drop23, tax3: -drop31, q1: 0.0, q2: q2 + h*k1/2, q3: q3 + h*k1/2)
         
         let k3: Double = rungeKutta4formula3(box2: q2 + h*k2/2, box3: q3 + h*k2/2)
-            
-            //rungeKutta4(tax1: 0.0, tax2: drop23, tax3: -drop31, q1: 0.0, q2: q2 + h*k2/2, q3: q3 + h*k2/2)
         
         let k4: Double = rungeKutta4formula3(box2: q2 + h*k3, box3: q3 + h*k3)
-            
-            //rungeKutta4(tax1: 0.0, tax2: drop23, tax3: -drop31, q1: 0.0, q2: q2 + h*k3, q3: q3 + h*k3)
         
         return y + (k1 + 2*k2 + 2*k3 + k4) * h/6
     }
@@ -215,28 +184,32 @@ class ViewController: UIViewController {
             
             j += h
             
-            print("Caixa1: \(caixa1), Caixa2: \(caixa2), Caixa3: \(caixa3)")
+            //print("Caixa1: \(caixa1), Caixa2: \(caixa2), Caixa3: \(caixa3)")
+            Output.text += "Dia: \(j) || Caixa1: \(caixa1) || Caixa2: \(caixa2) || Caixa3: \(caixa3) \n"
         }
+        
+        UIView.animate(withDuration: 1.0, delay: 0.5, options: .curveEaseOut, animations: {
+            
+            //MARK: - Tem que fazer a regra de três
+            //Tá bem diferente do certo, BEM ERRADO
+            var containerFillFrame = self.conteinerFill.frame
+            containerFillFrame.size.height += CGFloat(self.height)
+            
+            var container2Frame = self.conteiner2.frame
+            container2Frame.size.height -= CGFloat(self.height)
+            container2Frame.origin.y = 323
+            
+            //MARK: -Isso aqui é diferente
+            var container3Frame = self.conteiner3.frame
+            container3Frame.size.height -= CGFloat(self.height)
+            container3Frame.origin.y = 323
+            
+            self.conteinerFill.frame = containerFillFrame
+            self.conteiner2.frame = container2Frame
+            self.conteiner3.frame = container3Frame
+        }, completion: { finished in
+            print("Transaction Complete")
+        })
     }
     
 }
-
-
-
-/*
- 
- UIView.animate(withDuration: 1.0, delay: 1.2, options: .curveEaseOut, animations: {
- var fabricTopFrame = self.fabricTop.frame
- fabricTopFrame.origin.y -= fabricTopFrame.size.height
- 
- var fabricBottomFrame = self.fabricBottom.frame
- fabricBottomFrame.origin.y += fabricBottomFrame.size.height
- 
- self.fabricTop.frame = fabricTopFrame
- self.fabricBottom.frame = fabricBottomFrame
- }, completion: { finished in
- print("Napkins opened!")
- })
- 
- */
-

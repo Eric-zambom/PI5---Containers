@@ -13,6 +13,7 @@
 		12623A93225FF57D0067A6F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12623A92225FF57D0067A6F3 /* Assets.xcassets */; };
 		12623A96225FF57D0067A6F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12623A94225FF57D0067A6F3 /* LaunchScreen.storyboard */; };
 		12B23E1F226D9E1400A1C401 /* ViewControllerOldDraw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B23E1E226D9E1400A1C401 /* ViewControllerOldDraw.swift */; };
+		12EA6ABB22929201002E0CA4 /* ViewControllerOldV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EA6ABA22929201002E0CA4 /* ViewControllerOldV2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		12623A95225FF57D0067A6F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		12623A97225FF57D0067A6F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		12B23E1E226D9E1400A1C401 /* ViewControllerOldDraw.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerOldDraw.swift; sourceTree = "<group>"; };
+		12EA6ABA22929201002E0CA4 /* ViewControllerOldV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerOldV2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			children = (
 				12623A8B225FF57B0067A6F3 /* AppDelegate.swift */,
 				12623A8D225FF57B0067A6F3 /* ViewController.swift */,
+				12EA6ABA22929201002E0CA4 /* ViewControllerOldV2.swift */,
 				12B23E1E226D9E1400A1C401 /* ViewControllerOldDraw.swift */,
 				12623A8F225FF57B0067A6F3 /* Main.storyboard */,
 				12623A92225FF57D0067A6F3 /* Assets.xcassets */,
@@ -140,6 +143,7 @@
 			files = (
 				12623A8E225FF57B0067A6F3 /* ViewController.swift in Sources */,
 				12B23E1F226D9E1400A1C401 /* ViewControllerOldDraw.swift in Sources */,
+				12EA6ABB22929201002E0CA4 /* ViewControllerOldV2.swift in Sources */,
 				12623A8C225FF57B0067A6F3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
